@@ -1,12 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import {Font} from 'expo'
+
+import HomeScreen from './screens/HomeScreen'
 
 export default class App extends React.Component {
+  state = {
+    fontsLoaded : false
+  }
+  async componentDidMount () {
+     await Font.loadAsync({
+        'Heebo-regular' : require('./assets/fonts/Heebo-Regular.ttf'),
+         'Rubik-regular': require('./assets/fonts/Rubik-Regular.ttf'),
+         'Rubik-light' : require('./assets/fonts/Rubik-Light.ttf')
+      })
+
+      this.setState({fontsLoaded: true})
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+
+      this.state.fontsLoaded ? <HomeScreen/> : null
+      
+
     );
   }
 }
